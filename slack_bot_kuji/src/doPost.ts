@@ -61,6 +61,7 @@ export const env = (): void => {
   Logger.log({
     SLACK_VERIFICATION_TOKEN,
     SPREAD_SHEET_ID,
+    SPREAD_SHEET_URL
   });
 };
 
