@@ -22,7 +22,8 @@ $ clasp push
 ## starter kit
 
 ```
-$ cp starter_kit <app-name> && cd $_
+$ mkdir <app-name>
+$ cp -a starter_kit/* <app-name> && cd $_
 $ npm i
 
 # scriptIdを書き換える
