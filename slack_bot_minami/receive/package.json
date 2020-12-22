@@ -3,8 +3,8 @@
   "scripts": {
     "lint": "eslint --fix src/**/*.ts",
     "test": "jest",
-    "build": "npm run lint && npm run test && rimraf dist && webpack && cpx ../slack_bot_response/src/appsscript.json dist && cpx \\\"src/**/*.html\\\" dist",
-    "untest_build": "npm run lint && rimraf dist && webpack && cpx ../slack_bot_response/src/appsscript.json dist && cpx \\\"src/**/*.html\\\" dist",
+    "build": "npm run lint && npm run test && rimraf dist && webpack && cpx ../response/src/appsscript.json dist && cpx \\\\\\\"src/**/*.html\\\\\\\" dist",
+    "untest_build": "npm run lint && rimraf dist && webpack && cpx ../response/src/appsscript.json dist && cpx \\\\\\\"src/**/*.html\\\\\\\" dist",
     "push": "npm run build && clasp push",
     "untest_push": "npm run untest_build && clasp push"
   },
