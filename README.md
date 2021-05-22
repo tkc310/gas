@@ -1,4 +1,4 @@
-# Google App Scriptの学習用
+# Google App Script の学習用
 
 ## clasp
 
@@ -23,13 +23,21 @@ $ clasp push
 
 ```
 $ mkdir <app-name>
-$ cp -a starter_kit/* <app-name> && cd $_
+$ cp -a starter_kit <app-name> && cd $_
+
+# .clasp.jsonのscriptIdを書き換える
+$ vi .clasp.json
+# {
+#   "scriptId": "<your_script_id>",
+#   "rootDir": "dist"
+# }
+
+# npm install
 $ npm i
 
-# scriptIdを書き換える
-# { "scriptId": "<your_script_id>", "rootDir": "dist" }
-$ vi .clasp.json
+# lint
+npm run lint
 
 # build & deploy
-$ npm run push
+$ npm run untest_push
 ```
