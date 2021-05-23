@@ -14,8 +14,9 @@ const fetchPrevTokens = (sheet: GoogleAppsScript.Spreadsheet.Sheet): TToken[] =>
       name: item[1],
       symbol: item[2],
       createdAt: item[3],
-      locked: item[4],
-      code: item[5],
+      codeVerify: item[4],
+      urlCodeVerify: item[5],
+      urlLockedLiquidity: item[6],
     };
   });
 

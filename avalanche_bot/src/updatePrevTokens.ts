@@ -8,8 +8,9 @@ const updatePrevTokens = (sheet: GoogleAppsScript.Spreadsheet.Sheet, newTokens: 
     item.name,
     item.symbol,
     item.createdAt,
-    item.locked,
-    item.code,
+    item.codeVerify,
+    item.urlCodeVerify,
+    item.urlLockedLiquidity,
   ])
   .reverse();
 

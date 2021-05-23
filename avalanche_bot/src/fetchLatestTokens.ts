@@ -11,7 +11,7 @@ export const fetchLatestTokens = (
   prevContracts: string[],
   ignoreTokens: TIgnoreToken[]
 ): TToken[] => {
-  const scrapedTokens = scrapeAvascan();
+  const scrapedTokens = scrapeTokens();
   const tokens = scrapedTokens
     .filter((latest) => {
       return prevContracts.every((prevC) => {
@@ -28,24 +28,25 @@ export const fetchLatestTokens = (
       return someItems.length < 2;
     });
 
-  // const validatedTokens = tokens.map((item) => {
-  //   const locked = scrapedLocked(item.locked);
-  //   const code = scrapedCode(item.code, item.contractAddress);
+  // token毎にスクレイピングするためフィルター後の配列を利用
+  const validatedTokens = tokens.map((item) => {
+    // const locked = scrapedLocked(item.locked);
+    const codeVerify = scrapedCode(item.urlCodeVerify, item.contractAddress);
 
-  //   return {
-  //     ...item,
-  //     ...{
-  //       locked,
-  //       code,
-  //     },
-  //   };
-  // });
+    return {
+      ...item,
+      ...{
+        // locked,
+        codeVerify,
+      },
+    };
+  });
 
-  return tokens;
+  return validatedTokens;
 };
 
 // avascan sorted desc createdAt
-const scrapeAvascan = () => {
+const scrapeTokens = () => {
   const urlAvascan = 'https://avascan.info/blockchain/c/tokens?s=created-at%2Cdesc&p=1';
   const content = UrlFetchApp.fetch(urlAvascan).getContentText();
   const $ = Cheerio.load(content);
@@ -65,28 +66,41 @@ const scrapeAvascan = () => {
       return;
     }
 
-    const pathCode = `/address/${contractAddress}/contracts`;
-    const urlCode = encodeURI(`https://cchain.explorer.avax.network${pathCode}`);
-    const urlLocked = encodeURI([
+    const urlLockedLiquidity = encodeURI([
       `https://team.finance/view-coin/`,
       `${contractAddress}`,
       `?name=${name}`,
       `&symbol=${symbol}`,
     ].join(''));
 
+    const pathCode = `/address/${contractAddress}/contracts`;
+    const urlCodeVerify = encodeURI(`https://cchain.explorer.avax.network${pathCode}`);
+
     results.push({
       symbol,
       name,
       contractAddress,
       createdAt,
-      locked: urlLocked,
-      code: urlCode,
+      codeVerify: "❌",
+      urlCodeVerify,
+      urlLockedLiquidity,
     });
   });
 
   return results;
 };
 
+const scrapedCode = (url: string, contractAddress: string): TToken["codeVerify"] => {
+  const content = UrlFetchApp.fetch(url).getContentText();
+  const $ = Cheerio.load(content);
+
+  const path = `/address/${contractAddress}/contracts`;
+  const verified = !!$(`a[href="${path}"]`)?.has('i.fa-check-circle');
+
+  return verified ? "⭕️" : "❌";
+};
+
+// 反映にラグがあるためteam.financeからのスクレイピングは難しい
 const scrapedLocked = (url) => {
   const content = UrlFetchApp.fetch(url).getContentText();
   const $ = Cheerio.load(content);
@@ -97,16 +111,6 @@ const scrapedLocked = (url) => {
     .text();
   const lockedPer = parseInt(lockedValue.match(/\d+/));
   const locked = lockedPer > 0;
-
-  return locked;
-};
-
-const scrapedCode = (url: string, contractAddress: string): boolean => {
-  const content = UrlFetchApp.fetch(url).getContentText();
-  const $ = Cheerio.load(content);
-
-  const path = `/address/${contractAddress}/contracts`;
-  const locked = !!$(`a[href="${path}"]`)?.has('i.fa-check-circle');
 
   return locked;
 };

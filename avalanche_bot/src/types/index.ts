@@ -3,8 +3,9 @@ export type TToken = {
   name: string;
   symbol: string;
   createdAt: string;
-  locked: string;
-  code: string;
+  codeVerify: '⭕️' | '❌';
+  urlCodeVerify: boolean;
+  urlLockedLiquidity: string;
 };
 
 export type TIgnoreToken = {

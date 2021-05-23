@@ -22,7 +22,7 @@ const exec = (type?: "post"): void  => {
   }
 
   const result = latestTokens.length
-    ? `@here 新台が出たよ〜(•̀ᴗ•́)و\n${reformatTokens.join('\n')}\n計: ${latestTokens.length}件`
+    ? `@here 新台が出たよ〜(•̀ᴗ•́)و\n${reformatTokens.join('--- --- ---\n')}\n計: ${latestTokens.length}件`
     : 'No listed new tokens.';
 
   Logger.log({ result });

@@ -14,6 +14,7 @@ export const toMarkDown = (item: TToken): string =>
 *name* - ${item.name}
 *symbol* - ${item.symbol}
 *createdAt* - ${item.createdAt}
-*locked* - ${item.locked}
-*code* - ${item.code}
+*codeVerify* - ${item.codeVerify}
+*urlCodeVerify* - ${item.urlCodeVerify}
+*urlLockedLiquidity* - ${item.urlLockedLiquidity}
 `;
