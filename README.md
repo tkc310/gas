@@ -1,4 +1,4 @@
-# Google App Script の学習用
+# Google App Script で作った bot 置き場
 
 ## clasp
 
