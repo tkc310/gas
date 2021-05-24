@@ -6,7 +6,8 @@ declare const Cheerio: {
 };
 
 // scraping from avascan
-// TODO: scraping to get api
+// TODO: using api (v0.3 unsupported indexed c-chain)
+// @see: https://docs.avascan.info/quickstart-graphql#avascan-api
 export const fetchLatestTokens = (
   prevContracts: string[],
   ignoreTokens: TIgnoreToken[]
