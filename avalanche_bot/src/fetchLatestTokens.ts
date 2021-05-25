@@ -95,8 +95,8 @@ const scrapedCode = (url: string, contractAddress: string): TToken["codeVerify"]
   const content = UrlFetchApp.fetch(url).getContentText();
   const $ = Cheerio.load(content);
 
-  const path = `/address/${contractAddress}/contracts`;
-  const verified = !!$(`a[href="${path}"]`)?.has('i.fa-check-circle');
+  // const path = `/address/${contractAddress}/contracts`;
+  const verified = !!$('i.fa-check-circle')?.length;
 
   return verified ? "⭕️" : "❌";
 };
