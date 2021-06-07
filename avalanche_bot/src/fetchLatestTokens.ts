@@ -1,5 +1,6 @@
 import { jstDate } from './utils';
 import type { TIgnoreToken, TToken } from './types';
+import { IGNORE_NAME_REGS } from './constants';
 
 declare const Cheerio: {
   load(string): any;
@@ -22,6 +23,11 @@ export const fetchLatestTokens = (
     .filter((item) => {
       return ignoreTokens.every((ignore) => {
         return ignore.name !== item.name && ignore.symbol !== item.symbol;
+      });
+    })
+    .filter((item) => {
+      return IGNORE_NAME_REGS.every((reg) => {
+        return !item.name.match(reg);
       });
     })
     .filter((token, idx, self) => {
@@ -53,7 +59,7 @@ const scrapeTokens = () => {
   const $ = Cheerio.load(content);
 
   const $trs = $('tbody').children();
-  let results = [];
+  const results = [];
   $trs.each((_, tr) => {
     const $tr = $(tr);
 
