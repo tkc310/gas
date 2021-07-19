@@ -22,7 +22,6 @@ $ clasp push
 ## starter kit
 
 ```
-$ mkdir <app-name>
 $ cp -a starter_kit <app-name> && cd $_
 
 # .clasp.jsonのscriptIdを書き換える
@@ -41,3 +40,8 @@ npm run lint
 # build & deploy
 $ npm run untest_push
 ```
+
+## ライブラリの追加
+
+1. web 上でライブラリを追加して `appscript.json` の内容をコピー
+2. ローカルの `appscript.json` にコピーする
