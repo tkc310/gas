@@ -6,6 +6,16 @@
         "userSymbol": "Cheerio",
         "version": "12",
         "libraryId": "1ReeQ6WO8kKNxoaA_O0XEQ589cIrRvEBA9qcWpNqdOP17i47u6N9M5Xh0"
+      },
+      {
+        "userSymbol": "TwitterWebService",
+        "version": "2",
+        "libraryId": "1rgo8rXsxi1DxI_5Xgo_t3irTw1Y5cxl2mGSkbozKsSXf2E_KBBPC3xTF"
+      },
+      {
+        "userSymbol": "OAuth1",
+        "version": "18",
+        "libraryId": "1CXDCY5sqT9ph64fFwSzVtXnbjpSfWdRymafDrtIZ7Z_hwysTY7IIhi7s"
       }
     ]
   },

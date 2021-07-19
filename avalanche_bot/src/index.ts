@@ -1,4 +1,5 @@
 import exec from './exec';
+import { getOAuthURL } from './twitter';
 
 declare const global: {
   [x: string]: unknown;
@@ -11,26 +12,13 @@ const {
   SPREAD_SHEET_URL,
 } = process.env;
 
-type doGetEventType = {
-  parameter: {
-    token: string;
-    text: string | undefined;
-  };
-};
-
 // slackコマンド呼び出し用 (うまく動かん)
-const doPost = (
-  // e: doGetEventType
-): void => {
-  // if (SLACK_VERIFICATION_TOKEN != e?.parameter?.token) {
-  //   throw new Error('Token Invalid');
-  // }
-
+const doPost = (): void => {
   exec("post");
 };
 
-// cron実行用
-export const doSchedule = () => {
+// 定期実行用
+const doSchedule = () => {
   exec();
 };
 
@@ -46,5 +34,6 @@ export const env = (): void => {
 
 global.doPost = doPost;
 global.doSchedule = doSchedule;
+global.getOAuthURL = getOAuthURL;
 global.exec = exec;
 global.env = env;
