@@ -9,5 +9,8 @@ export const IGNORE_RANGE = `A2:B1000`;
 export const IGNORE_NAME_REGS = [
   /( |-)Liquidity($| |-)/,
   /( |-)LPs($| |-)/,
-  /( |-)LP($| |-)/
+  /( |-)LP($| |-)/,
+  /( |-|^)Wrapped($| |-)/i,
+  /test/i,
 ];
+export const TWITTER_API_URL = 'https://api.twitter.com/1.1/statuses/update.json';

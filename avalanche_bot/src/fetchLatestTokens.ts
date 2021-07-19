@@ -27,7 +27,7 @@ export const fetchLatestTokens = (
     })
     .filter((item) => {
       return IGNORE_NAME_REGS.every((reg) => {
-        return !item.name.match(reg);
+        return !item.name.match(reg) && !item.symbol.match(reg);
       });
     })
     .filter((token, idx, self) => {

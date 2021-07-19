@@ -2,7 +2,8 @@ import fetchLatestTokens from './fetchLatestTokens';
 import fetchPrevTokens from './fetchPrevTokens';
 import fetchIgnoreTokens from './fetchIgnoreTokens';
 import updatePrevTokens from './updatePrevTokens';
-import { toMarkDown } from './utils';
+import { toFormat } from './utils';
+import tweet from './twitter';
 
 const { SLACK_WEBHOOK_URL, SPREAD_SHEET_ID } = process.env;
 
@@ -15,31 +16,25 @@ const exec = (type?: "post"): void  => {
   const prevTokens = fetchPrevTokens(sheetPrevTokens);
   const prevContracts = prevTokens.map((item) => item.contractAddress) || [];
   const latestTokens = fetchLatestTokens(prevContracts, ignoreTokens);
-  const reformatTokens = latestTokens.map((item) => toMarkDown(item));
+  const outputTokens = latestTokens
+    .filter((item) => item.codeVerify === '⭕️')
+    .map((item) => toFormat(item));
 
   if (latestTokens.length) {
     updatePrevTokens(sheetPrevTokens, latestTokens);
   }
 
   const result = latestTokens.length
-    ? `@here 新台が出たよ〜(•̀ᴗ•́)و\n${reformatTokens.join('--- --- ---\n')}\n計: ${latestTokens.length}件`
+    ? `${outputTokens.join('--- --- ---\n')}`
     : 'No listed new tokens.';
 
   Logger.log({ result });
 
-  if (type === "post" || latestTokens.length) {
-    const options = {
-      method : "post",
-      contentType : "application/json",
-      payload : JSON.stringify(
-        {
-          "text" : result,
-          link_names: 1
-        }
-      )
-    };
+  if (type === "post" || outputTokens.length) {
     // @ts-ignore
-    UrlFetchApp.fetch(SLACK_WEBHOOK_URL, options);
+    outputTokens.forEach((message) => {
+      tweet(message);
+    });
   }
 };
 
