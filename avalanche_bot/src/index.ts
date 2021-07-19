@@ -1,5 +1,5 @@
 import exec from './exec';
-import { getOAuthURL } from './twitter';
+import { getOAuthURL, authCallback } from './twitter';
 
 declare const global: {
   [x: string]: unknown;
@@ -34,6 +34,9 @@ export const env = (): void => {
 
 global.doPost = doPost;
 global.doSchedule = doSchedule;
-global.getOAuthURL = getOAuthURL;
 global.exec = exec;
 global.env = env;
+
+// twitter api oauth認証用
+global.getOAuthURL = getOAuthURL;
+global.authCallback = authCallback;

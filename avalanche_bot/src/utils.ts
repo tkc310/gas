@@ -9,12 +9,10 @@ export const jstDate = (date?: string): string => {
   return result;
 };
 
-export const toMarkDown = (item: TToken): string =>
-`*contractAddress* - ${item.contractAddress}
-*name* - ${item.name}
-*symbol* - ${item.symbol}
-*createdAt* - ${item.createdAt}
-*codeVerify* - ${item.codeVerify}
-*urlCodeVerify* - ${item.urlCodeVerify}
-*urlLockedLiquidity* - ${item.urlLockedLiquidity}
+export const toFormat = (item: TToken): string =>
+  `contract - ${item.contractAddress}
+name - ${item.name}
+symbol - ${item.symbol}
+created - ${item.createdAt}
+contract url - ${item.urlCodeVerify}
 `;
